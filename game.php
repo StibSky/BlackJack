@@ -1,13 +1,32 @@
 <?php
-require ("blackjack.php");
+require("blackjack.php");
+session_start();
 
-$player = new Blackjack();
-$dealer = new Blackjack();
+if (isset($_SESSION["player"])) {
+    $player = new Blackjack($_SESSION["player"]);
+} else {
+    $_SESSION["player"] = 0;
+    $player = new Blackjack($_SESSION["player"]);
+}
+
+if (isset($_SESSION["dealer"])) {
+    $dealer = new Blackjack($_SESSION["dealer"]);
+} else {
+    $_SESSION["dealer"] = 0;
+    $dealer = new Blackjack($_SESSION["dealer"]);
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['hitButton'] == 1) {
         $player->hit();
-    }
+        $_SESSION["player"] = $player->getScore();
 
+        if ($player->getScore() > 21) {
+            echo "You lost";
+            session_destroy();
+        }
+    }
     if ($_POST['hitButton'] == 2) {
         $player->stand($player, $dealer);
     }
@@ -15,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $player->surrender();
     }
 }
+
+
 
 
 

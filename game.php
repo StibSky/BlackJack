@@ -1,4 +1,6 @@
 <?php
+require ("blackjack.php");
+
 $player = new Blackjack();
 $dealer = new Blackjack();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -13,3 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $player->surrender();
     }
 }
+
+
+
+

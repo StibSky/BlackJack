@@ -16,6 +16,8 @@ if (isset($_SESSION["dealer"])) {
     $dealer = new Blackjack($_SESSION["dealer"]);
 }
 
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['hitButton'] == 1) {
         $player->hit();

@@ -1,5 +1,10 @@
 <?php
 
+
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 require "game.php";
 ?>
 
@@ -11,17 +16,20 @@ require "game.php";
 </head>
 <body>
 <form method="post">
+    <h1><?php echo $player->dealMessage; ?></h1>
     <button type="submit" name="hitButton" value='1' <?php echo $player->disabled ?>>Hit Me!</button>
     <button type="submit" name="hitButton" value='2' <?php echo $player->disabled ?>>Stand</button>
     <button type="submit" name="hitButton" value='3'><?php echo $player->surReplay ?></button>
-    <h1>Player score: <?php echo $player->getScore();?></h1>
-    <h1>Dealer score: <?php echo $dealer->getScore();?></h1>
-    <h1>Dealer score: <?php
-        foreach ($dealer->dealArray as $deal) {
-        echo $deal;};
-        ?></h1>
-    <h1><?php echo $player->dealMessage;?></h1>
-    <h1>helping people</h1>
+    <h3> <?php echo "you drew ". $player->drawMsg; ?></h3>
+    <img src="images/<?php echo $player->image?>" width="80px" alt="cardImage">
+    <h2>Player score: <?php echo $player->getScore(); ?></h2>
+    <h2>Dealer score:
+        <?php
+        foreach ($dealer->dealArray as $deal): ?>
+
+            <p><?php echo $deal ?></p>
+        <?php endforeach; ?>
+    </h2>
 </form>
 </body>
 </html>

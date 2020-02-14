@@ -14,18 +14,40 @@ class Blackjack
     public $surReplay = "Surrender";
     public $dealMessage = "result";
     public $dealArray = [];
+    public $drawMsg;
+    public $image;
+    public $newimg;
 
     public function __construct(int $score)
     {
         $this->score = $score;
     }
 
+
     function hit()
     {
         $ranNum = rand(1, 11);
+        $this->drawMsg = $ranNum;
         $this->score += $ranNum;
-        echo  "<br/>$this->score";
 
+
+        ////extra stuff to add images
+        for ($i = 1; $i <= 11 ; $i++ ) {
+            if ($ranNum == 10) {
+                $figuresarray = ['JH', 'KH', 'QH'];
+                $randIndex = array_rand($figuresarray);
+                $this->image = $figuresarray[$randIndex].".png";
+            }elseif ($ranNum == 1 || $ranNum == 11){
+                $this->image = "AH.png";
+            }
+
+            elseif ($ranNum == $i) {
+                $this->image = $i."H.png";
+            }
+        }
+
+
+        return $this->drawMsg;
     }
 
     function getScore(): int
@@ -35,13 +57,12 @@ class Blackjack
 
     function stand(Blackjack $player, Blackjack $dealer)
     {
-        echo "player had " . $player->getScore() . "<br/>";
         $playTotal = $player->getScore();
-        echo "Dealer cards </br>";
+
         do {
             $dealer->hit();
             $_SESSION["dealer"] = $dealer->getScore();
-          array_push( $this->dealArray, $dealer->getScore());
+          array_push( $dealer->dealArray, $dealer->getScore());
         } while ($dealer->getScore() < 15);
 
 
@@ -60,11 +81,6 @@ class Blackjack
         }
     }
 
-
-    function surrender()
-    {
-     unset($_SESSION);
-    }
 }
 
 ;

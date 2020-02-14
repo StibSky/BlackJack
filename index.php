@@ -19,10 +19,9 @@ require "game.php";
     <h1>Dealer score: <?php
         foreach ($dealer->dealArray as $deal) {
         echo $deal;};
-
-
         ?></h1>
     <h1><?php echo $player->dealMessage;?></h1>
+    <h1>helping people</h1>
 </form>
 </body>
 </html>

@@ -31,6 +31,7 @@ class Blackjack
         $this->score += $ranNum;
 
 
+
         ////extra stuff to add images
         for ($i = 1; $i <= 11 ; $i++ ) {
             if ($ranNum == 10) {
@@ -63,7 +64,7 @@ class Blackjack
             $dealer->hit();
             $_SESSION["dealer"] = $dealer->getScore();
           array_push( $dealer->dealArray, $dealer->getScore());
-        } while ($dealer->getScore() < 15);
+        } while ($dealer->getScore() < $player->getScore());
 
 
         if ($dealer->getScore() > 21) {

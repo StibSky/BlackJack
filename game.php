@@ -23,15 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION["player"] = $player->getScore();
 
         if ($player->getScore() > 21) {
-            echo "You lost";
+            $player->dealMessage= " <br/>BUST, YOU LOSE, GOOD DAY SIR";
             session_destroy();
+            $player->disabled = "disabled";
+            $player->surReplay = "New game";
         }
     }
     if ($_POST['hitButton'] == 2) {
         $player->stand($player, $dealer);
     }
     if ($_POST['hitButton'] == 3) {
-        $player->surrender();
+        session_destroy();
     }
 }
 

@@ -10,12 +10,19 @@ require "game.php";
     <title>Document</title>
 </head>
 <body>
-<p> <?php ?></p>
 <form method="post">
-    <h1> <?php echo $player->score ?></h1>
     <button type="submit" name="hitButton" value='1' <?php echo $player->disabled ?>>Hit Me!</button>
     <button type="submit" name="hitButton" value='2' <?php echo $player->disabled ?>>Stand</button>
     <button type="submit" name="hitButton" value='3'><?php echo $player->surReplay ?></button>
+    <h1>Player score: <?php echo $player->getScore();?></h1>
+    <h1>Dealer score: <?php echo $dealer->getScore();?></h1>
+    <h1>Dealer score: <?php
+        foreach ($dealer->dealArray as $deal) {
+        echo $deal;};
+
+
+        ?></h1>
+    <h1><?php echo $player->dealMessage;?></h1>
 </form>
 </body>
 </html>

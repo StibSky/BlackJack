@@ -12,6 +12,8 @@ class Blackjack
     public $standScore;
     public $disabled;
     public $surReplay = "Surrender";
+    public $dealMessage = "result";
+    public $dealArray = [];
 
     public function __construct(int $score)
     {
@@ -38,20 +40,21 @@ class Blackjack
         echo "Dealer cards </br>";
         do {
             $dealer->hit();
-            $_SESSION["Dealer"] = $dealer->getScore();
+            $_SESSION["dealer"] = $dealer->getScore();
+          array_push( $this->dealArray, $dealer->getScore());
         } while ($dealer->getScore() < 15);
 
 
         if ($dealer->getScore() > 21) {
-            echo "<br/>DEALER BUSTS </br> YOU WIN!";
+            $this->dealMessage = "<br/>DEALER BUSTS </br> YOU WIN!";
             $this->disabled = "disabled";
             $this->surReplay = "New game";
         } elseif ($dealer->getScore() >= $playTotal && $dealer->getScore() <= 21) {
-            echo "<br/>DEALER BEAT YO ASS";
+            $this->dealMessage =  "<br/>DEALER BEAT YO ASS";
             $this->disabled = "disabled";
             $this->surReplay = "New game";
         } elseif ($dealer->getScore() < $playTotal) {
-            echo "<br/>YOU WIN, DEALER LOST";
+            $this->dealMessage =  "<br/>YOU WIN, DEALER LOST";
             $this->disabled = "disabled";
             $this->surReplay = "New game";
         }
@@ -60,7 +63,7 @@ class Blackjack
 
     function surrender()
     {
-        $_SESSION['score'] = 0;
+     unset($_SESSION);
     }
 }
 
